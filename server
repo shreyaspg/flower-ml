@@ -6,6 +6,12 @@ from sklearn.model_selection import train_test_split
 from typing import Dict
 import pandas as pd
 
+
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+
 def fit_round(rnd: int) -> Dict:
     """Send round number to client."""
     return {"rnd": rnd}
@@ -13,20 +19,23 @@ def fit_round(rnd: int) -> Dict:
 
 def get_eval_fn(model: LogisticRegression):
     """Return an evaluation function for server-side evaluation."""
-    col_names=['patient_id','full_name','address','age_days','age_year','gender','height','weight','ap_hi','ap_lo','cholesterol','gluc','smoke','alco','active','cardio']
-    pima = pd.read_csv("knn_data.csv",header=None, names=col_names)
-    print(pima.head())
+    col_names=['', 'Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18', 'V19', 'V20', 'V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28', 'Amount', 'Class']
+    pima = pd.read_csv("data/CC.csv",header=0,names =col_names )
+#    print(pima.head())
 
     #select features
-    feature_cols = ['cholesterol', 'smoke', 'alco']
+    feature_cols = ['Amount', 'V2', 'V28']
+    target_class = ['Class']
     X = pima[feature_cols]
-    y = pima.active
-
+    y = pima.Class
+    
     #Selecting train and test sets
 
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.25,random_state=1)
+#    print(X_train)
+#    print("after")
+#    print(X_train.values)
 
-    y_test= pd.to_numeric(y_test)
     # Load test data here to avoid the overhead of doing it in `evaluate` itself
 #    _, (X_test, y_test) = utils.load_mnist()
 
@@ -34,7 +43,7 @@ def get_eval_fn(model: LogisticRegression):
     def evaluate(parameters: fl.common.Weights):
         # Update model with the latest parameters
         utils.set_model_params(model, parameters)
-        loss = log_loss(y_test, model.predict_proba(X_test))
+        loss = log_loss(y_test.values, model.predict_proba(X_test.values))
         accuracy = model.score(X_test, y_test)
         return loss, {"accuracy": accuracy}
 

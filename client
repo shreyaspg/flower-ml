@@ -8,18 +8,24 @@ from sklearn.metrics import log_loss
 from sklearn.model_selection import train_test_split
 
 import utils
+def warn(*args, **kwargs):
+    pass
+import warnings
 
 if __name__ == "__main__":
-    col_names=['patient_id','full_name','address','age_days','age_year','gender','height','weight','ap_hi','ap_lo','cholesterol','gluc','smoke','alco','active','cardio']
-    pima = pd.read_csv("knn_data.csv",header=0, names=col_names)
+    warnings.warn = warn
+    col_names=['', 'Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18', 'V19', 'V20', 'V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28', 'Amount', 'Class']
+    pima = pd.read_csv("data/CC.csv",header=0,names =col_names )
 #    print(pima.head())
 
     #select features
-    feature_cols = ['cholesterol', 'smoke', 'alco']
+    feature_cols = ['Amount', 'V2', 'V28']
+    target_class = ['Class']
     X = pima[feature_cols]
-    y = pima.active
+    y = pima.Class
 
     #Selecting train and test sets
+
 
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.25,random_state=0)
     model = LogisticRegression(
@@ -41,13 +47,13 @@ if __name__ == "__main__":
             # Ignore convergence failure due to low local epochs
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
-                model.fit(X_train, y_train)
+                model.fit(X_train.values, y_train)
             print(f"Training finished for round {config['rnd']}")
             return utils.get_model_parameters(model), len(X_train), {}
 
         def evaluate(self, parameters, config):  # type: ignore
             utils.set_model_params(model, parameters)
-            loss = log_loss(y_test, model.predict_proba(X_test))
+            loss = log_loss(y_test, model.predict_proba(X_test.values))
             accuracy = model.score(X_test, y_test)
             return loss, len(X_test), {"accuracy": accuracy}
 
