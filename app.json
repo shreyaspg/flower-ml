@@ -1,0 +1,15 @@
+{
+  "name":"Federated learning",
+  "description":"",
+  "input_image_name":"shrys197/fx-private",
+  "output_image_name":"shrys197/fx-private",
+  "isvprodid":1,
+  "isvsvn":1,
+  "mem_size":1024,
+  "threads":10,
+  "allowed_domains":[],
+  "advanced_settings":{
+	"encryptedDirs":[ "/data"],
+        "rw_dirs": [""]
+	}
+}
