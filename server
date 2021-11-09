@@ -4,6 +4,7 @@ from sklearn.metrics import log_loss
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from typing import Dict
+from crypto import decrypt, encrypt
 import pandas as pd
 
 
@@ -18,9 +19,10 @@ def fit_round(rnd: int) -> Dict:
 
 
 def get_eval_fn(model: LogisticRegression):
+    
     """Return an evaluation function for server-side evaluation."""
     col_names=['', 'Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18', 'V19', 'V20', 'V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28', 'Amount', 'Class']
-    pima = pd.read_csv("data/CC.csv",header=0,names =col_names )
+    pima = pd.read_csv("data/CC.csv.enc.dec",header=0,names =col_names )
 #    print(pima.head())
 
     #select features
@@ -52,6 +54,7 @@ def get_eval_fn(model: LogisticRegression):
 
 # Start Flower server for five rounds of federated learning
 if __name__ == "__main__":
+    decrypt("data/CC.csv.enc")
     model = LogisticRegression()
     utils.set_initial_params(model)
     strategy = fl.server.strategy.FedAvg(

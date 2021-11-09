@@ -9,6 +9,7 @@ RUN pip install flwr==0.16.0
 RUN pip install scikit-learn==0.24.2
 RUN pip install openml==0.12.2
 RUN pip install pandas
+RUN pip install cryptography
 
 
 WORKDIR $HOME
