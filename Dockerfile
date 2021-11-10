@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y \
 
 ENV HOME /home/app
 RUN pip install --upgrade pip
+RUN mkdir /input
+RUN mkdir /data
 
 RUN pip install flwr==0.16.0
 RUN pip install scikit-learn==0.24.2

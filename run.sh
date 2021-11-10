@@ -17,7 +17,5 @@ CONTAINER_NAME=federated-learning-demo
 
 # start container   
 docker run \
-    -v $volume:/data --net=host --rm \
+    -v $volume:/input --net=host --rm \
     shrys197/fx-private:encrypt_test $1
-
-    # --device /dev/sgx:/dev/sgx -v /var/run/aesmd:/var/run/aesmd \

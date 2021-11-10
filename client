@@ -7,17 +7,24 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss
 from sklearn.model_selection import train_test_split
 from crypto import encrypt,decrypt
-
+import os
 import utils
+
 def warn(*args, **kwargs):
     pass
 import warnings
 
+
+DATA_PATH="/input/CC.csv.enc"
+
 if __name__ == "__main__":
-    decrypt("data/CC.csv.enc")
+    if os.path.isfile("/data/CC.csv.enc.dec"):
+        print("Decrypted file already exists...")
+    else:
+        decrypt(DATA_PATH)
     warnings.warn = warn
     col_names=['', 'Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18', 'V19', 'V20', 'V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28', 'Amount', 'Class']
-    pima = pd.read_csv("data/CC.csv.enc.dec",header=0,names =col_names )
+    pima = pd.read_csv("/data/CC.csv.enc.dec",header=0,names =col_names )
 #    print(pima.head())
 
     #select features

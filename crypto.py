@@ -47,12 +47,13 @@ def decrypt(file_path):
     fd = open(file_path,"rb")
     encMessage = fd.read()
     fd.close()
-
+    
+    print("The len of encMessage is" + str(len(encMessage)))
     #Decrypt data
     plainText = fernet.decrypt(encMessage).decode()
     print("Decryption done ...")
 
-    fd = open(file_path + ".dec","w")
+    fd = open("/data/CC.csv.enc.dec","w")
     fd.write(plainText)
     fd.close()
 

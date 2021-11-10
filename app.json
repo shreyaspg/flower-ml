@@ -1,15 +1,15 @@
 {
-  "name":"Federated learning",
+  "name":"Federated learning for credit data",
   "description":"",
   "input_image_name":"shrys197/fx-private",
   "output_image_name":"shrys197/fx-private",
   "isvprodid":1,
   "isvsvn":1,
-  "mem_size":1024,
-  "threads":10,
+  "mem_size":32768,
+  "threads":512,
   "allowed_domains":[],
   "advanced_settings":{
 	"encryptedDirs":[ "/data"],
-        "rw_dirs": [""]
+        "rw_dirs": ["/"]
 	}
 }

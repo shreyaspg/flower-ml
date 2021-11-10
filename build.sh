@@ -7,7 +7,7 @@ fi
 
 build_path=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")
 staging_dir="${build_path}/staging"
-# echo $staging_dir
+echo "Build path is ${build_path}"
 
 trap 'cleanup' EXIT
 cleanup() {
