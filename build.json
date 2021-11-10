@@ -1,0 +1,9 @@
+{
+  "app_id":"b442d9fc-9b84-418a-8533-ab19551c0fdd",
+  "input_docker_version":"encryption_credit",
+  "output_docker_version":"encryption_credit-sgx",
+  "outputAuthConfig":{
+    "username":"shrys197",
+    "password":"Tumblr@12345"
+  }
+}
